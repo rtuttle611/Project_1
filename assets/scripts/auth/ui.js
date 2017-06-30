@@ -8,6 +8,7 @@ const signUpSuccess = (data) => {
 }
 
 const signUpFailure = (data) => {
+  console.log("======ERROR=======", data);
   $('#messages-sign-up').text("Uh-oh! Something went wrong- try again!")
 }
 

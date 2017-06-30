@@ -21,7 +21,8 @@ $(function () {
 })
 // On document ready
 $(() => {
-  $('#-welcome-modal-').modal({backdrop: 'static'})
+  // $('#-welcome-modal-').modal({backdrop: 'static'})
+  $('#spots li').click(gameEvents.playerTurn)
   authEvents.addHandlers()
   gameEvents.addHandlers()
 })

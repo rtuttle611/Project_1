@@ -2,6 +2,7 @@
 
 const gapi = require('./game-api')
 const gui = require('./game-ui')
+let currentPlayer = 'x'
 
 const onUpdateGame = function (index, value, over) {
   let data = {}
@@ -29,6 +30,7 @@ const onUpdateGame = function (index, value, over) {
     .catch(gui.failure)
 }
 
+const gameState = {}
 const onCellClick = function (e) {
   e.preventDefault()
 
@@ -68,6 +70,17 @@ const onCellClick = function (e) {
   }
 }
 
+
+const playerTurn = function () {
+  console.log($(this));
+  $(this).text(currentPlayer)
+  if (currentPlayer === 'x') {
+    currentPlayer = 'o'
+  } else {
+    currentPlayer = 'x'
+  }
+}
+
 const onCreateGame = function () {
   gapi.createGame()
     .then(gui.createGameSuccess)
@@ -75,7 +88,7 @@ const onCreateGame = function () {
 }
 
 const onRestartGame = function () {
-  gameState.gameFinished()
+  // gameState.gameFinished()
   onCreateGame()
 }
 
@@ -96,5 +109,6 @@ module.exports = {
   addHandlers,
   onCreateGame,
   onRestartGame,
-  onUpdateGame
+  onUpdateGame,
+  playerTurn
 }
