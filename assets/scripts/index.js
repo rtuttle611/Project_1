@@ -23,6 +23,7 @@ $(function () {
 $(() => {
   // $('#-welcome-modal-').modal({backdrop: 'static'})
   $('#spots li').click(gameEvents.playerTurn)
+  $('#spots li').click(gameEvents.getBoard)
   authEvents.addHandlers()
   gameEvents.addHandlers()
 })

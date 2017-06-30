@@ -3,8 +3,9 @@
 const gapi = require('./game-api')
 const gui = require('./game-ui')
 let currentPlayer = 'x'
+let gameArray = []
 
-const onUpdateGame = function (index, value, over) {
+const onUpdateGame = function(index, value, over) {
   let data = {}
 
   if (index === null && value === null) {
@@ -31,7 +32,7 @@ const onUpdateGame = function (index, value, over) {
 }
 
 const gameState = {}
-const onCellClick = function (e) {
+const onCellClick = function(e) {
   e.preventDefault()
 
   if (!($(this).data('data-mark'))) {
@@ -71,9 +72,16 @@ const onCellClick = function (e) {
 }
 
 
-const playerTurn = function () {
-  console.log($(this));
+const playerTurn = function(spot) {
+  gameArray = []
   $(this).text(currentPlayer)
+
+  $('#spots li').each((i, e) => {
+    gameArray.push(e.textContent)
+  })
+
+  console.log("DO WE HAVE A WINNER", checkForWinner(currentPlayer))
+
   if (currentPlayer === 'x') {
     currentPlayer = 'o'
   } else {
@@ -81,18 +89,42 @@ const playerTurn = function () {
   }
 }
 
-const onCreateGame = function () {
+const checkForWinner = function(player) {
+  console.log('is the player here', player)
+  console.log('gameArray', gameArray)
+  return winningRow(player) || winningCol(player) || winnningDiag(player)
+}
+
+const allThree = function(player, spot1, spot2, spot3) {
+  return (spot1 === player) && (spot2 === player) && (spot3 === player)
+}
+const winningRow = function(player) {
+  return allThree(player, gameArray[0], gameArray[1], gameArray[2]) ||
+    allThree(player, gameArray[3], gameArray[4], gameArray[5]) ||
+    allThree(player, gameArray[6], gameArray[7], gameArray[8])
+}
+const winningCol = function(player) {
+  return allThree(player, gameArray[0], gameArray[3], gameArray[6]) ||
+    allThree(player, gameArray[1], gameArray[4], gameArray[7]) ||
+    allThree(player, gameArray[2], gameArray[5], gameArray[8])
+}
+const winnningDiag = function(player) {
+  return allThree(player, gameArray[0], gameArray[4], gameArray[8]) ||
+    allThree(player, gameArray[2], gameArray[4], gameArray[6])
+}
+
+const onCreateGame = function() {
   gapi.createGame()
     .then(gui.createGameSuccess)
     .catch(gui.failure)
 }
 
-const onRestartGame = function () {
+const onRestartGame = function() {
   // gameState.gameFinished()
   onCreateGame()
 }
 
-const onGameInfo = function (e) {
+const onGameInfo = function(e) {
   e.preventDefault()
   gapi.gameInfo()
     .then(gui.gameInfoSuccess)
