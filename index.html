@@ -1,25 +1,204 @@
-<!DOCTYPE html>
+<!DOCTYPE>
+
 <html>
-    <head>
-      <title>Example</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Do not add `link` tags unless you know what you are doing -->
-      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<head>
+  <title>Tic Tac Toe</title>
 
-      <!-- Do not add `script` tags unless you know what you are doing -->
-      <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
-      <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
-    </head>
-    <body class="container-fluid">
-      <h1>Example</h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-      ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.</p>
-    </body>
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+</head>
+
+<body>
+  <!-- NAVBAR START -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#">Tic Tac Toe</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <!-- <li><a href="#">Link</a></li> Link Item-->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" data-toggle="modal" data-target="#-game-info-modal-" id="game-info-button">Game Stats</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#-change-password-modal-">Change Password</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#-sign-out-modal-">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <!-- NAVBAR END -->
+
+  <!-- GAMEBOARD START -->
+  <div class='gameBoard'>
+    <h1 class='headline'>Welcome to Tic-Tac-Toe</h1>
+    <ul>
+      <li class='spot' id='spot1'>1</li>
+      <li class='spot' id='spot2'>2</li>
+      <li class='spot' id='spot3'>3</li>
+      <li class='spot' id='spot4'>4</li>
+      <li class='spot' id='spot5'>5</li>
+      <li class='spot' id='spot6'>6</li>
+      <li class='spot' id='spot7'>7</li>
+      <li class='spot' id='spot8'>8</li>
+      <li class='spot' id='spot9'>9</li>
+    </ul>
+  </div>
+
+
+
+
+  <div class="modal fade" id="-welcome-modal-" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Welcome to Tic Tac Toe!</h4>
+        </div>
+        <div class="modal-body welcome-content">
+          <p>Ready to play some Tic Tac Toe? You'll need to Sign In or Sign Up first!</p>
+          <!-- FORM START -->
+          <h3>Sign Up</h3>
+          <form id="sign-up">
+            <div class="form-group">
+              <label for="-sign-up-enter-email-">Email</label>
+              <input type="email" name="credentials[email]" id="-sign-up-enter-email-" class="form-control" placeholder="tic@tac.toe">
+            </div>
+            <div class="form-group">
+              <label for="-sign-up-enter-password-">Password</label>
+              <input type="password" name="credentials[password]" class="form-control" id="-sign-up-enter-password-" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="-sign-up-confirm-password-">Confirm Password</label>
+              <input type="password" name="credentials[password_confirmation]" class="form-control" id="-sign-up-confirm-password-" placeholder="Confirm Password">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button><span class="messages" id="messages-sign-up"></span>
+          </form>
+          <!-- FORM END -->
+          <!-- FORM START -->
+          <h3>Sign In</h3>
+          <form id="sign-in">
+            <div class="form-group">
+              <label for="-sign-in-enter-email-">Email</label>
+              <input type="email" name="credentials[email]" id="-sign-in-enter-email-" class="form-control" placeholder="tic@tac.toe">
+            </div>
+            <div class="form-group">
+              <label for="-sign-in-enter-password-">Password</label>
+              <input type="password" name="credentials[password]" class="form-control" id="-sign-in-enter-password-" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button><span class="messages" id="messages-sign-in"></span>
+          </form>
+          <!-- FORM END -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- WELCOME MODAL END -->
+  <!-- GAME OVER MODAL START -->
+  <div class="modal fade" id="-game-over-modal-" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Game Over</h4>
+        </div>
+        <div class="modal-body">
+          <div class="game-over-content">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="restart-button" data-dismiss="modal">Restart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- GAME OVER MODAL END -->
+  <!-- GAME INFO MODAL START -->
+  <div class="modal fade" id="-game-info-modal-" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Game Stats</h4>
+        </div>
+        <div class="modal-body">
+          <div class="game-info-content">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- GAME INFO MODAL END -->
+  <!-- CHANGE PASSWORD MODAL START -->
+  <div class="modal fade" id="-change-password-modal-" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+        </div>
+        <div class="modal-body">
+          <!-- FORM START -->
+          <form id="change-password">
+            <div class="form-group">
+              <label for="-change-password-old-">Old Password</label>
+              <input type="password" name="passwords[old]" id="-change-password-old-" class="form-control" placeholder="Old Password">
+            </div>
+            <div class="form-group">
+              <label for="-change-password-new-">New Password</label>
+              <input type="password" name="passwords[new]" class="form-control" id="-change-password-new-" placeholder="New Password">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </form>
+          <!-- FORM END -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- CHANGE PASSWORD MODAL END -->
+  <!-- SIGN OUT MODAL START -->
+  <div class="modal fade" id="-sign-out-modal-" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign Out</h4>
+        </div>
+        <div class="modal-body">
+          Are you sure?
+        </div>
+        <div class="modal-footer">
+          <!-- FORM START -->
+          <form id="sign-out">
+            <div class="form-group">
+              <button type="submit" class="btn btn-default">Yeah, I'm Sure</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Will you be coming back?</button>
+            </div>
+          </form>
+          <!-- FORM END -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- SIGN OUT MODAL END -->
+</body>
+
 </html>

@@ -1,2 +1,27 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'color';
+@import 'theme';
+@import 'game-board';
+
+
+
+.gameBoard {
+  background-color: gray;
+  width: 350px;
+}
+
+.gameBoard {
+  background-color: gray;
+  width: 350px;
+}
+
+.spot {
+  width: 100px;
+  height: 100px;
+  background-color: pink;
+  float:left;
+  border: 1px black solid;
+  list-style: none;
+
+}

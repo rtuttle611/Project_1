@@ -1,14 +1,27 @@
 'use strict'
 
+const authEvents = require('./auth/events.js')
+const gameEvents = require('./game/game-events.js')
+
 const setAPIOrigin = require('../../lib/set-api-origin')
 const config = require('./config')
+// const api = require('./api')
+// const events = require('./events')
+// const ui = require('./ui')
 
-$(() => {
+$(function () {
+  console.log(config)
   setAPIOrigin(location, config)
+  $('form').on('submit', function (event) {
+    event.preventDefault()
+    const input = $('#name').val()
+    console.log(input)
+    $('#myModal').modal('hide')
+  })
 })
-
-// use require with a reference to bundle the file and use it in this file
-// const example = require('./example')
-
-// use require without a reference to ensure a file is bundled
-require('./example')
+// On document ready
+$(() => {
+  $('#-welcome-modal-').modal({backdrop: 'static'})
+  authEvents.addHandlers()
+  gameEvents.addHandlers()
+})
